@@ -9,24 +9,29 @@ services:
       - 8080:80
     networks:
       - proxy-network
+    depends_on:
+      - node
   node:
     build:
       context: node
     container_name: node
     networks:
       - proxy-network
+    depends_on:
+      - db
   db:
-    image: mysql:5.7.16
-    command: --innodb-use-native-aio=0
+    build:
+      context: mysql
     container_name: db
-    restart: always
-    tty: true
-    volumes: 
-      - ./mysql:/var/lib/mysql
+    command: --innodb-use-native-aio=0
     environment: 
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
-    networks: 
+    volumes:
+      - ./mysql/db:/var/lib/mysql
+    restart: always
+    tty: true
+    networks:
       - proxy-network
 
 networks:
