@@ -1,3 +1,0 @@
-CREATE TABLE IF NOT EXISTS people (
-    name VARCHAR(255) NOT NULL
-);
