@@ -15,8 +15,10 @@ services:
     build:
       context: node
     container_name: node
+    tty: true
     volumes:
-      - ./node/app:/usr/src/app 
+      - ./node/app:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - proxy-network
     depends_on:
